@@ -1,37 +1,30 @@
-import { useEffect, useId } from "react";
-import P5 from "p5";
-import 'p5/lib/addons/p5.sound';
+import Sketch from 'react-p5';
+import p5Types from "p5";
+import "p5/lib/addons/p5.sound";
 
-const visualisation = ({ width, height }: { width: number; height: number }) => {
-  const sketch = (p5: P5) => {
-    p5.setup = () => {
-      p5.createCanvas(width, height);
-    };
-    p5.draw = () => {
-      p5.line(0, 0, width, height);
-    };
-  };
-
-  const p5 = new P5(sketch);
-};
-
-const P5Component = ({
-  width,
-  height,
-}: {
+interface ComponentProps {
+  // Your component props
   width: number;
   height: number;
-}) => {
-  const id = useId();
+}
 
-  useEffect(() => {
-    visualisation({
-      width,
-      height,
-    });
-  }, [height, width]);
+let x = 50;
+const y = 50;
 
-  return <div id={id}></div>;
+const P5Component: React.FC<ComponentProps> = (props: ComponentProps) => {
+
+  // See annotations in JS for more information
+  const setup = (p5: p5Types, canvasParentRef: Element) => {
+    p5.createCanvas(500, 500).parent(canvasParentRef);
+  };
+
+  const draw = (p5: p5Types) => {
+    p5.background(0);
+    p5.ellipse(x, y, 70, 70);
+    x++;
+  };
+
+  return <Sketch setup={setup} draw={draw} />;
 };
 
 export default P5Component;
