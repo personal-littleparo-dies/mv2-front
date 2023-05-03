@@ -34,15 +34,24 @@
 
 // export default App
 
-import P5Component from "./components/P5Component";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Room from './pages/Room/Room';
 
 function App() {
   return (
-    <>  
-      <P5Component width={500} height={500} />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/room/:roomId" element={<Room />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+
+
+
