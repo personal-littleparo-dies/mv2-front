@@ -1,45 +1,59 @@
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-interface MusicRoomProps {
+type Song = {
+  id: number;
+  title: string;
+  artist: string;
+};
+
+type RoomParams = {
   roomId: string;
-  roomPassword: string;
-  onPasswordChange: (password: string) => void;
-}
+};
 
-function MusicRoom(props: MusicRoomProps) {
-  const { roomId } = useParams<{ roomId: string }>();
-  const [newSong, setNewSong] = useState('');
+const MusicRoom = () => {
+  const { roomId } = useParams<RoomParams>();
+  const [songs, setSongs] = useState<Song[]>([]);
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onPasswordChange(event.target.value);
-  };
+  useEffect(() => {
+    const fetchSongs = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/v1/rooms/${roomId}/queue`);
+        const songsData = await response.json();
+        setSongs(songsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSongs();
+  }, [roomId]);
 
-  const handleSongSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Add newSong to the music queue
-    setNewSong('');
+  const handleAddSong = async (title: string, artist: string) => {
+    try {
+      const response = await fetch(`/api/v1/rooms/${roomId}/queue`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          artist,
+        }),
+      });
+      const newSong = await response.json();
+      setSongs([...songs, newSong]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <h2>Room {roomId}</h2>
-      <label htmlFor="room-password-input">Enter Room Password:</label>
-      <input id="room-password-input" type="password" value={props.roomPassword} onChange={handlePasswordChange} />
-      <h3>Current Music Queue:</h3>
-      <ul>
-        <li>Song 1</li>
-        <li>Song 2</li>
-        <li>Song 3</li>
-      </ul>
-      <h3>Add a Song to the Queue:</h3>
-      <form onSubmit={handleSongSubmit}>
-        <input type="text" value={newSong} onChange={(event) => setNewSong(event.target.value)} />
-        <button type="submit">Add Song</button>
-      </form>
-      <Link to="/">Go Back to Home</Link>
+      <h1>Music Room {roomId}</h1>
+      <MusicQueue songs={songs} />
+      <AddSongForm onAddSong={handleAddSong} />
     </div>
   );
-}
+};
 
 export default MusicRoom;

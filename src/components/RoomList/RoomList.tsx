@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 interface Room {
-  id: string;
+  id: number;
   name: string;
 }
 
-interface Props {
-  rooms: Room[];
-}
+function RoomList() {
+  const [rooms, setRooms] = useState<Room[]>([]);
 
-function RoomList({ rooms }: Props) {
+  useEffect(() => {
+    axios.get<Room[]>('/api/rooms').then((response) => {
+      setRooms(response.data);
+    });
+  }, []);
+
   return (
     <div>
-      <h2>Room List</h2>
+      <h2>Available Rooms</h2>
       <ul>
-        {rooms.map(room => (
+        {rooms.map((room) => (
           <li key={room.id}>
             <Link to={`/room/${room.id}`}>{room.name}</Link>
           </li>
