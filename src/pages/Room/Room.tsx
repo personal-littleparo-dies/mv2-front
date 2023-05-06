@@ -8,19 +8,19 @@ interface RoomParams {
 
 function Room() {
   const { roomId } = useParams<RoomParams>();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   
-  useEffect(() => {
-    // Make API call to authenticate room
-    authenticateRoom(roomId).then((response) => {
-      setIsAuthenticated(response.isAuthenticated);
-    });
-  }, [roomId]);
+  // useEffect(() => {
+  //   // Make API call to authenticate room
+  //   authenticateRoom(roomId).then((response) => {
+  //     setIsAuthenticated(response.isAuthenticated);
+  //   });
+  // }, [roomId]);
   
-  if (!isAuthenticated) {
-    // Render loading spinner or authentication error message
-    return <div>Loading...</div>;
-  }
+  // if (!isAuthenticated) {
+  //   // Render loading spinner or authentication error message
+  //   return <div>Loading...</div>;
+  // }
   
   return (
     <div>
@@ -30,10 +30,10 @@ function Room() {
   );
 }
 
-async function authenticateRoom(roomId: string) {
-  const response = await fetch(`/api/rooms/${roomId}/auth`);
-  const data = await response.json();
-  return data;
-}
+// async function authenticateRoom(roomId: string) {
+//   const response = await fetch(`/api/rooms/${roomId}/auth`);
+//   const data = await response.json();
+//   return data;
+// }
 
 export default Room;

@@ -11,7 +11,7 @@ function RoomList() {
   const [rooms, setRooms] = useState<Room[]>([]);
 
   useEffect(() => {
-    axios.get<Room[]>('/api/rooms').then((response) => {
+    axios.get<Room[]>('http://localhost:8000/api/v1/rooms').then((response) => {
       setRooms(response.data);
     });
   }, []);

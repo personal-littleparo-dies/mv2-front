@@ -37,14 +37,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import RoomAuth from './pages/Room/RoomAuth';
+// import RoomAuth from './pages/Room/RoomAuth';
+import MusicRoom from './components/MusicRoom/MusicRoom';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/room/:roomId" element={<RoomAuth />} />
+        {/* <Route path="/room/:roomId" element={<RoomAuth />} /> */}
+        <Route path="/room/:roomId" element={<MusicRoom />} />
       </Routes>
     </BrowserRouter>
   );
