@@ -13,11 +13,15 @@ function MusicLobby() {
 
   useEffect(() => {
     setIsLoading(true);
-
+  
     api.get<Room[]>("rooms").then((response) => {
       setRooms(response.data);
       setIsLoading(false);
     });
+  
+    return () => {
+      setIsLoading(true);
+    };
   }, []);
 
   return (
