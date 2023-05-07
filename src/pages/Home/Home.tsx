@@ -1,4 +1,4 @@
-import MusicLobby from '../../components/Main/MusicLobby';
+import MusicLobby from "../../components/MusicLobby/MusicLobby";
 
 function Home() {
   return (
