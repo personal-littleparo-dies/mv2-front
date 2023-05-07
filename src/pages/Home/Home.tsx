@@ -1,9 +1,9 @@
-import Main from '../../components/Main/MusicLobby';
+import MusicLobby from '../../components/Main/MusicLobby';
 
 function Home() {
   return (
     <div>
-      <Main />
+      <MusicLobby />
     </div>
   );
 }

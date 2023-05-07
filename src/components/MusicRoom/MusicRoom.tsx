@@ -27,7 +27,7 @@ function Room() {
 
   async function fetchMusicList() {
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/${roomId}/queue`);
+      const response = await fetch(`/api/v1/${roomId}/queue`);
       if (!response.ok) {
         throw new Error('Failed to fetch music list');
       }
@@ -54,7 +54,7 @@ function Room() {
     console.log("Request body:", JSON.stringify(requestBody));
     await axios
       .post(
-        `http://localhost:8000/api/v1/${roomId}/queue`,
+        `/api/v1/${roomId}/queue`,
         JSON.stringify(requestBody),
         config
       )
