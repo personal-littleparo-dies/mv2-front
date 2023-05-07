@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import MusicRoom from '../../components/MusicRoom/MusicRoom';
+// import { useState, useEffect } from 'react';
+import MusicRoom from "../../components/MusicRoom/MusicRoom";
 
-interface RoomParams {
-  roomId: string;
-}
-
-function Room() {
-  const { roomId } = useParams<RoomParams>();
+const Room: React.FC = () => {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   // useEffect(() => {
@@ -24,8 +18,7 @@ function Room() {
   
   return (
     <div>
-      // Render MusicRoom component with roomId as prop
-      <MusicRoom roomId={roomId} />
+      <MusicRoom />
     </div>
   );
 }
