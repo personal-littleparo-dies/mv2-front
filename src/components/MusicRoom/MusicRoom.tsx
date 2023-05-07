@@ -33,6 +33,10 @@ function Room() {
       console.error(error);
       setIsError(true);
     });
+    
+    return () => {
+      setIsLoading(true);
+    }
   }, [roomId]);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
