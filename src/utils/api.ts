@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 // TODO: read environment variable and set baseURL based on it
 // const baseURL = "http://localhost:8000/api/v1/";
-const baseURL = "/api/v1/";
+const baseURL = ":8000/api/v1/";
 
 const get = <T>(url: string, config?: AxiosRequestConfig) => {
   return axios.get<T>(`${baseURL}${url}`, config);
